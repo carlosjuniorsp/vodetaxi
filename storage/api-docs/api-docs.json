@@ -21,7 +21,9 @@
                         "description": "Validation errors"
                     }
                 }
-            },
+            }
+        },
+        "/api/cars/{driver_id}": {
             "post": {
                 "tags": [
                     "#3 - Car"

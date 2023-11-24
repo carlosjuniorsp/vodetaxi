@@ -47,7 +47,7 @@ class CarsController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/cars",
+     * path="/api/cars/{driver_id}",
      * operationId="register_car",
      * tags={"#3 - Car"},
      * summary="Register a new car",
