@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\CarsController;
+use App\Http\Controllers\StatusDriverController;
 use Illuminate\Support\Facades\Route;
 
 /*

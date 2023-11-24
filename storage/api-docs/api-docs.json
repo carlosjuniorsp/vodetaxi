@@ -577,6 +577,83 @@
                     }
                 }
             }
+        },
+        "/api/status-driver/{id}": {
+            "post": {
+                "tags": [
+                    "#2 - Status Driver"
+                ],
+                "summary": "Register a status driver",
+                "description": "Register a status driver",
+                "operationId": "register_status_driver",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Driver id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "zip_code",
+                                    "active"
+                                ],
+                                "properties": {
+                                    "zip_code": {
+                                        "type": "text"
+                                    },
+                                    "active": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "name": "Motorista Carlos",
+                                        "email": "example@email.com.br",
+                                        "password": "12345678",
+                                        "city": "Mogi das Cruzes",
+                                        "state": "SP",
+                                        "address": "Rua 10",
+                                        "phone": "1193251-2496",
+                                        "age": 31,
+                                        "picture": "image.jpg",
+                                        "gender": "Masculino",
+                                        "description": "Amo dirigir na vai de taxi",
+                                        "account_validation": "0"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
         }
     }
 }

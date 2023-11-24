@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCarsFormRequest extends FormRequest
+class StoreStatusDriverRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,11 +29,8 @@ class StoreCarsFormRequest extends FormRequest
             case 'PUT':
             case 'POST': {
                     return [
-                        'plate' => 'required|min:8|max:8',
-                        'color' => 'required|min:3|max:50',
-                        'year' => 'required|min:4|max:4',
-                        'model' => 'required|min:3|max:50',
-                        'name' => 'required|min:3|max:50'
+                        'zip_code' => 'required|min:9|max:9',
+                        'active' => 'required|min:1|max:1',
                     ];
                 }
             default:
