@@ -28,7 +28,7 @@ class StoreClientFormRequest extends FormRequest
             'city' => 'required|min:3|max:50',
             'state' => 'required|min:2|max:2',
             'address' => 'required|max:150',
-            'phone' => 'required|min:14|max:14',
+            'phone' => 'required|min:12|max:12',
         ];
     }
 

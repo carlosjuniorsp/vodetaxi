@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientFormRequest;
 use App\Models\Clients;
+use Illuminate\Http\Client\Request;
 
 class ClientsController extends Controller
 {
@@ -23,6 +24,7 @@ class ClientsController extends Controller
     /**
      * @OA\get(
      *     path="/api/clients",
+     *      operationId="display_clients",
      *     tags={"Client"},
      *     summary="Display all customers",
      *     description="Display all customers",
@@ -45,7 +47,7 @@ class ClientsController extends Controller
     /**
      * @OA\Post(
      * path="/api/clients",
-     * operationId="client",
+     * operationId="register_client",
      * tags={"Client"},
      * summary="Register a new customer",
      * description="Register a new customer",
@@ -63,7 +65,7 @@ class ClientsController extends Controller
      *               @OA\Property(property="state", type="text"),
      *               @OA\Property(property="address", type="text"),
      *               @OA\Property(property="phone", type="text"),
-     *               @OA\Property(property="account_validation", type="text"),
+     *               @OA\Property(property="account_validation", type="number"),
      *            ),
      *        ),
      *    ),
@@ -96,7 +98,10 @@ class ClientsController extends Controller
      */
     public function store(StoreClientFormRequest $request)
     {
-        $client = $this->model->create($request->all());
+        $data = $request->all();
+        if ($request->password)
+            $data['password'] = bcrypt($request->password);
+        $client = $this->model->create($data);
         return response()->json($client);
     }
 }
