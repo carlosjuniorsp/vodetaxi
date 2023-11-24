@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->char('name', 100);
-            $table->char('email', 100)->unique();
+            $table->char('email', 100);
+            $table->char('password', 15);
             $table->char('city', 100);
             $table->char('state', 2);
             $table->char('address', 255);
-            $table->char('account_validation', 2);
             $table->char('phone', 12);
+            $table->char('account_validation', 2);
             $table->softDeletes();
             $table->timestamps();
         });

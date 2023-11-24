@@ -10,7 +10,8 @@
                 "tags": [
                     "Client"
                 ],
-                "summary": "Register a new client",
+                "summary": "Display all customers",
+                "description": "Display all customers",
                 "operationId": "0b636ca85e574ff3010b44d6c621c537",
                 "responses": {
                     "201": {
@@ -25,88 +26,91 @@
                 "tags": [
                     "Client"
                 ],
-                "summary": "Register a new client",
-                "operationId": "9fdaf88d446f92c97501f370f36678cb",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Client's name",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Clients's email",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Clients's password",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "city",
-                        "in": "query",
-                        "description": "Clients's city",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "state",
-                        "in": "query",
-                        "description": "Clients's state",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "adress",
-                        "in": "query",
-                        "description": "Clients's adress",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "account_validation",
-                        "in": "query",
-                        "description": "Customer account validation",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "phone",
-                        "in": "query",
-                        "description": "Clients's phone",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "summary": "Register a new customer",
+                "description": "Register a new customer",
+                "operationId": "client",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "city",
+                                    "state",
+                                    "address",
+                                    "phone",
+                                    "account_validation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "text"
+                                    },
+                                    "email": {
+                                        "type": "text"
+                                    },
+                                    "password": {
+                                        "type": "text"
+                                    },
+                                    "city": {
+                                        "type": "text"
+                                    },
+                                    "state": {
+                                        "type": "text"
+                                    },
+                                    "address": {
+                                        "type": "text"
+                                    },
+                                    "phone": {
+                                        "type": "text"
+                                    },
+                                    "account_validation": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
                         }
                     }
-                ],
+                },
                 "responses": {
-                    "201": {
-                        "description": "Clients registered successfully"
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "name": "carlos",
+                                        "email": "example@email.com.br",
+                                        "password": "12345678",
+                                        "city": "Suzano",
+                                        "state": "SP",
+                                        "address": "Rua 01",
+                                        "phone": "1195252-8596",
+                                        "account_validation": "0"
+                                    }
+                                ]
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Validation errors"
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
                     }
                 }
             }

@@ -13,10 +13,12 @@ class Clients extends Model
     protected $fillable = [
         'name',
         'email',
+        'password',
         'city',
         'state',
         'address',
-        'phone'
+        'phone',
+        'account_validation'
     ];
 
     protected $hidden = [
