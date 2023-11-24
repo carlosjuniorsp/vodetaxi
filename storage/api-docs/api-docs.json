@@ -111,7 +111,7 @@
                 }
             }
         },
-        "/api/clients/activation": {
+        "/api/clients/activation/{id}": {
             "put": {
                 "tags": [
                     "Client"
@@ -119,26 +119,20 @@
                 "summary": "Activate customer account",
                 "description": "Activate customer account",
                 "operationId": "active_client",
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "account_validation"
-                                ],
-                                "properties": {
-                                    "account_validation": {
-                                        "type": "number"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Buscar por estado",
+                        "required": true
+                    },
+                    {
+                        "name": "account_validation",
+                        "in": "query",
+                        "description": "1 active and 0 deactive",
+                        "required": true
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Register Successfully",

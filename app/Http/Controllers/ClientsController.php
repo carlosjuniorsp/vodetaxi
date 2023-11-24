@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientFormRequest;
 use App\Models\Clients;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
@@ -106,22 +106,23 @@ class ClientsController extends Controller
 
     /**
      * @OA\Put(
-     * path="/api/clients/activation",
+     * path="/api/clients/activation/{id}",
      * operationId="active_client",
      * tags={"Client"},
      * summary="Activate customer account",
      * description="Activate customer account",
-     *     @OA\RequestBody(
-     *         @OA\JsonContent(),
-     *         @OA\MediaType(
-     *            mediaType="multipart/form-data",
-     *            @OA\Schema(
-     *               type="object",
-     *               required={"account_validation"},
-     *               @OA\Property(property="account_validation", type="number"),
-     *            ),
-     *        ),
-     *    ),
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Buscar por estado",
+     *         required=true,
+     *      ),
+     *      @OA\Parameter(
+     *         name="account_validation",
+     *         in="query",
+     *         description="1 active and 0 deactive",
+     *         required=true,
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Register Successfully",
@@ -142,8 +143,19 @@ class ClientsController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function AccountActivation(StoreClientFormRequest $request)
+    public function AccountActivation($id, Request $request)
     {
-        return "Conta ativada";
+
+        $client = $this->model->find($id);
+        if (empty($client)) {
+            return [
+                'message' => 'Não foi possível atualizar os dados, o cliente (' . $id . ') não existe!',
+                'status' => 200
+            ];
+        }
+
+
+        $client->update($request->all());
+        return response()->json($client);
     }
 }
