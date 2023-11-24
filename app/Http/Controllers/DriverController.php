@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDriverFormRequest;
 use App\Models\Driver;
+use Illuminate\Http\Request;
 
 class DriverController extends Controller
 {
@@ -95,7 +96,6 @@ class DriverController extends Controller
      *      @OA\Response(
      *          response=422,
      *          description="Unprocessable Entity",
-     *          @OA\JsonContent()
      *       ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
@@ -110,5 +110,58 @@ class DriverController extends Controller
             $data['password'] = bcrypt($request->password);
         $client = $this->model->create($data);
         return response()->json($client);
+    }
+
+    /**
+     * @OA\Put(
+     * path="/api/driver/activation/{id}",
+     * operationId="active_driver",
+     * tags={"Driver"},
+     * summary="Activate driver account",
+     * description="Activate driver account",
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Driver id",
+     *         required=true,
+     *      ),
+     *      @OA\Parameter(
+     *         name="account_validation",
+     *         in="query",
+     *         description="1 active and 0 deactive",
+     *         required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Register Successfully",
+     *          @OA\JsonContent(
+     *              example={
+     *                  {
+     *                      "account_validation": "1",
+     *                  }
+     *              }
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function AccountActivation($id, Request $request)
+    {
+
+        $driver = $this->model->find($id);
+        if (empty($driver)) {
+            return [
+                'message' => 'Não foi possível atualizar os dados, o motorista (' . $id . ') não existe!',
+                'status' => 200
+            ];
+        }
+
+        $driver->update($request->all());
+        return response()->json($driver);
     }
 }

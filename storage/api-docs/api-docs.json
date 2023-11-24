@@ -308,12 +308,55 @@
                         }
                     },
                     "422": {
-                        "description": "Unprocessable Entity",
+                        "description": "Unprocessable Entity"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/driver/activation/{id}": {
+            "put": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Activate driver account",
+                "description": "Activate driver account",
+                "operationId": "active_driver",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Driver id",
+                        "required": true
+                    },
+                    {
+                        "name": "account_validation",
+                        "in": "query",
+                        "description": "1 active and 0 deactive",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Register Successfully",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "account_validation": "1"
+                                    }
+                                ]
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
                     },
                     "400": {
                         "description": "Bad request"
