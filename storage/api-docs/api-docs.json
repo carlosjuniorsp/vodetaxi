@@ -115,14 +115,14 @@
                 "tags": [
                     "#3 - Car"
                 ],
-                "summary": "Update a car",
-                "description": "Update a car",
+                "summary": "Update a customer",
+                "description": "Update a customer",
                 "operationId": "update_car",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Card id",
+                        "description": "Car id",
                         "required": true
                     }
                 ],
@@ -142,10 +142,10 @@
                                         "type": "text"
                                     },
                                     "color": {
-                                        "type": "text"
+                                        "type": "email"
                                     },
                                     "year": {
-                                        "type": "number"
+                                        "type": "password"
                                     },
                                     "model": {
                                         "type": "text"
@@ -164,7 +164,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Register Successfully",
+                        "description": "Update Successfully",
                         "content": {
                             "application/json": {
                                 "schema": {},

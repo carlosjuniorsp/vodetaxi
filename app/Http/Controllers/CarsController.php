@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCarsFormRequest;
 use App\Models\Cars;
 use App\Models\Driver;
-use Illuminate\Http\Request;
 
 class CarsController extends Controller
 {
@@ -130,16 +129,16 @@ class CarsController extends Controller
 
 
     /**
-     * @OA\PUT(
+     * @OA\Put(
      * path="/api/cars/{id}",
      * operationId="update_car",
      * tags={"#3 - Car"},
-     * summary="Update a car",
-     * description="Update a car",
+     * summary="Update a customer",
+     * description="Update a customer",
      *      @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Card id",
+     *         description="Car id",
      *         required=true,
      *      ),
      *     @OA\RequestBody(
@@ -148,23 +147,23 @@ class CarsController extends Controller
      *            mediaType="multipart/form-data",
      *            @OA\Schema(
      *               type="object",
-     *               required={"plate","color","year","model","name"},
+     *               required={"plate","color", "year", "model", "name"},
      *               @OA\Property(property="plate", type="text"),
-     *               @OA\Property(property="color", type="text"),
-     *               @OA\Property(property="year", type="number"),
+     *               @OA\Property(property="color", type="email"),
+     *               @OA\Property(property="year", type="password"),
      *               @OA\Property(property="model", type="text"),
-     *               @OA\Property(property="name", type="text")
+     *               @OA\Property(property="name", type="text"),
      *            ),
      *        ),
      *    ),
      *      @OA\Response(
      *          response=200,
-     *          description="Register Successfully",
+     *          description="Update Successfully",
      *          @OA\JsonContent(
      *              example={
-     *                  {
-     *                      "plate":"FAB-8575",
-     *                      "color":"black",
+     *                   {
+     *                      "plate": "FAB-8575",
+     *                      "color": "black",
      *                      "year": "2013",
      *                      "model": "FIAT",
      *                      "name": "BRAVO"
@@ -181,7 +180,7 @@ class CarsController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function update($id, Request $request)
+    public function update($id, StoreCarsFormRequest $request)
     {
         $car = $this->model->find($id);
         if (empty($car)) {
@@ -190,8 +189,10 @@ class CarsController extends Controller
                 'status' => 200
             ];
         }
+        $data = $request->all();
 
-        $car->update($request->all());
+        $data['driver_id'] = $car['driver_id'];
+        $car->update($data);
         return response()->json($car);
     }
 

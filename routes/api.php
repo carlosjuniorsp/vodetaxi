@@ -40,3 +40,10 @@ Route::delete('/driver/{id}', [DriverController::class, 'destroy'])->name('destr
 Route::post('/cars/{id}', [CarsController::class, 'store'])->name('store');
 Route::get('/cars', [CarsController::class, 'index'])->name('index');
 Route::put('/cars/{id}', [CarsController::class, 'update'])->name('update');
+
+/**
+ * Status Driver Router
+ */
+Route::post('/status-driver/{id}', [StatusDriverController::class, 'store'])->name('store');
+Route::get('/status-driver', [StatusDriverController::class, 'index'])->name('index');
+Route::put('/status-driver/{id}', [StatusDriverController::class, 'update'])->name('update');
