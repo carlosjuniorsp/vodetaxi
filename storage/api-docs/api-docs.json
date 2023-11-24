@@ -5,10 +5,200 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/cars": {
+            "get": {
+                "tags": [
+                    "#3 - Car"
+                ],
+                "summary": "Display all cars",
+                "description": "Display all cars",
+                "operationId": "display_cars",
+                "responses": {
+                    "201": {
+                        "description": "Clients registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "#3 - Car"
+                ],
+                "summary": "Register a new car",
+                "description": "Register a new car",
+                "operationId": "register_car",
+                "parameters": [
+                    {
+                        "name": "driver_id",
+                        "in": "path",
+                        "description": "Driver driver_id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "plate",
+                                    "color",
+                                    "year",
+                                    "model",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "plate": {
+                                        "type": "text"
+                                    },
+                                    "color": {
+                                        "type": "text"
+                                    },
+                                    "year": {
+                                        "type": "number"
+                                    },
+                                    "model": {
+                                        "type": "text"
+                                    },
+                                    "name": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "plate": "FAB-8575",
+                                        "color": "black",
+                                        "year": "2013",
+                                        "model": "FIAT",
+                                        "name": "BRAVO"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/cars/{id}": {
+            "put": {
+                "tags": [
+                    "#3 - Car"
+                ],
+                "summary": "Update a car",
+                "description": "Update a car",
+                "operationId": "update_car",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Card id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "plate",
+                                    "color",
+                                    "year",
+                                    "model",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "plate": {
+                                        "type": "text"
+                                    },
+                                    "color": {
+                                        "type": "text"
+                                    },
+                                    "year": {
+                                        "type": "number"
+                                    },
+                                    "model": {
+                                        "type": "text"
+                                    },
+                                    "name": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "plate": "FAB-8575",
+                                        "color": "black",
+                                        "year": "2013",
+                                        "model": "FIAT",
+                                        "name": "BRAVO"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/clients": {
             "get": {
                 "tags": [
-                    "Client"
+                    "#1 - Client"
                 ],
                 "summary": "Display all customers",
                 "description": "Display all customers",
@@ -24,7 +214,7 @@
             },
             "post": {
                 "tags": [
-                    "Client"
+                    "#1 - Client"
                 ],
                 "summary": "Register a new customer",
                 "description": "Register a new customer",
@@ -114,7 +304,7 @@
         "/api/clients/activation/{id}": {
             "put": {
                 "tags": [
-                    "Client"
+                    "#1 - Client"
                 ],
                 "summary": "Activate customer account",
                 "description": "Activate customer account",
@@ -148,12 +338,7 @@
                         }
                     },
                     "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Unprocessable Entity"
                     },
                     "400": {
                         "description": "Bad request"
@@ -167,7 +352,7 @@
         "/api/clients/{id}": {
             "delete": {
                 "tags": [
-                    "Client"
+                    "#1 - Client"
                 ],
                 "summary": "Deactive customer account",
                 "description": "Deactive customer account",
@@ -182,12 +367,7 @@
                 ],
                 "responses": {
                     "422": {
-                        "description": "Unprocessable Entity",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Unprocessable Entity"
                     },
                     "400": {
                         "description": "Bad request"
@@ -201,7 +381,7 @@
         "/api/driver": {
             "get": {
                 "tags": [
-                    "Driver"
+                    "#2 - Driver"
                 ],
                 "summary": "Display all customers",
                 "description": "Display all customers",
@@ -217,7 +397,7 @@
             },
             "post": {
                 "tags": [
-                    "Driver"
+                    "#2 - Driver"
                 ],
                 "summary": "Register a new driver",
                 "description": "Register a new driver",
@@ -322,7 +502,7 @@
         "/api/driver/activation/{id}": {
             "put": {
                 "tags": [
-                    "Driver"
+                    "#2 - Driver"
                 ],
                 "summary": "Activate driver account",
                 "description": "Activate driver account",
@@ -355,6 +535,35 @@
                             }
                         }
                     },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/driver/{id}": {
+            "delete": {
+                "tags": [
+                    "#2 - Driver"
+                ],
+                "summary": "Deactive driver account",
+                "description": "Deactive driver account",
+                "operationId": "destroy_driver",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Driver id",
+                        "required": true
+                    }
+                ],
+                "responses": {
                     "422": {
                         "description": "Unprocessable Entity"
                     },

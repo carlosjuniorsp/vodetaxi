@@ -25,7 +25,7 @@ class ClientsController extends Controller
      * @OA\get(
      *     path="/api/clients",
      *      operationId="display_clients",
-     *     tags={"Client"},
+     *     tags={"#1 - Client"},
      *     summary="Display all customers",
      *     description="Display all customers",
      *     @OA\Response(response="201", description="Clients registered successfully"),
@@ -48,7 +48,7 @@ class ClientsController extends Controller
      * @OA\Post(
      * path="/api/clients",
      * operationId="register_client",
-     * tags={"Client"},
+     * tags={"#1 - Client"},
      * summary="Register a new customer",
      * description="Register a new customer",
      *     @OA\RequestBody(
@@ -108,7 +108,7 @@ class ClientsController extends Controller
      * @OA\Put(
      * path="/api/clients/activation/{id}",
      * operationId="active_client",
-     * tags={"Client"},
+     * tags={"#1 - Client"},
      * summary="Activate customer account",
      * description="Activate customer account",
      *      @OA\Parameter(
@@ -144,7 +144,6 @@ class ClientsController extends Controller
      */
     public function AccountActivation($id, Request $request)
     {
-
         $client = $this->model->find($id);
         if (empty($client)) {
             return [
@@ -152,7 +151,6 @@ class ClientsController extends Controller
                 'status' => 200
             ];
         }
-
 
         $client->update($request->all());
         return response()->json($client);
@@ -162,7 +160,7 @@ class ClientsController extends Controller
      * @OA\DELETE(
      * path="/api/clients/{id}",
      * operationId="destroy_client",
-     * tags={"Client"},
+     * tags={"#1 - Client"},
      * summary="Deactive customer account",
      * description="Deactive customer account",
      *      @OA\Parameter(

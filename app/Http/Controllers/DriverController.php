@@ -24,7 +24,7 @@ class DriverController extends Controller
      * @OA\get(
      *     path="/api/driver",
      *      operationId="display_driver",
-     *     tags={"Driver"},
+     *     tags={"#2 - Driver"},
      *     summary="Display all customers",
      *     description="Display all customers",
      *     @OA\Response(response="201", description="driver registered successfully"),
@@ -47,7 +47,7 @@ class DriverController extends Controller
      * @OA\Post(
      * path="/api/driver",
      * operationId="register_driver",
-     * tags={"Driver"},
+     * tags={"#2 - Driver"},
      * summary="Register a new driver",
      * description="Register a new driver",
      *     @OA\RequestBody(
@@ -116,7 +116,7 @@ class DriverController extends Controller
      * @OA\Put(
      * path="/api/driver/activation/{id}",
      * operationId="active_driver",
-     * tags={"Driver"},
+     * tags={"#2 - Driver"},
      * summary="Activate driver account",
      * description="Activate driver account",
      *      @OA\Parameter(
@@ -163,5 +163,42 @@ class DriverController extends Controller
 
         $driver->update($request->all());
         return response()->json($driver);
+    }
+
+    /**
+     * @OA\DELETE(
+     * path="/api/driver/{id}",
+     * operationId="destroy_driver",
+     * tags={"#2 - Driver"},
+     * summary="Deactive driver account",
+     * description="Deactive driver account",
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Driver id",
+     *         required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function destroy($id)
+    {
+        $driver = $this->model->find($id);
+        if (empty($driver)) {
+            return [
+                'message' => 'Não foi possível deletar os dados, o motorista (' . $id . ') não existe!',
+                'status' => 200
+            ];
+        }
+        $driver->delete();
+        return response()->json([
+            'message' => 'Os dados foram deletados com sucesso!',
+            'status' => 200
+        ]);
     }
 }
