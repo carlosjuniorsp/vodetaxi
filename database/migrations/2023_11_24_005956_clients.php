@@ -20,7 +20,7 @@ return new class extends Migration
             $table->char('state', 2);
             $table->char('address', 255);
             $table->char('phone', 12);
-            $table->char('account_validation', 2);
+            $table->char('account_validation', 2)->default('0');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -12,7 +12,7 @@
                 ],
                 "summary": "Display all customers",
                 "description": "Display all customers",
-                "operationId": "0b636ca85e574ff3010b44d6c621c537",
+                "operationId": "display_clients",
                 "responses": {
                     "201": {
                         "description": "Clients registered successfully"
@@ -28,7 +28,7 @@
                 ],
                 "summary": "Register a new customer",
                 "description": "Register a new customer",
-                "operationId": "client",
+                "operationId": "register_client",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -40,18 +40,17 @@
                                     "city",
                                     "state",
                                     "address",
-                                    "phone",
-                                    "account_validation"
+                                    "phone"
                                 ],
                                 "properties": {
                                     "name": {
                                         "type": "text"
                                     },
                                     "email": {
-                                        "type": "text"
+                                        "type": "email"
                                     },
                                     "password": {
-                                        "type": "text"
+                                        "type": "password"
                                     },
                                     "city": {
                                         "type": "text"
@@ -63,9 +62,6 @@
                                         "type": "text"
                                     },
                                     "phone": {
-                                        "type": "text"
-                                    },
-                                    "account_validation": {
                                         "type": "text"
                                     }
                                 },
@@ -93,6 +89,65 @@
                                         "address": "Rua 01",
                                         "phone": "1195252-8596",
                                         "account_validation": "0"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/clients/activation": {
+            "put": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Activate customer account",
+                "description": "Activate customer account",
+                "operationId": "active_client",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "account_validation"
+                                ],
+                                "properties": {
+                                    "account_validation": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "account_validation": "1"
                                     }
                                 ]
                             }
