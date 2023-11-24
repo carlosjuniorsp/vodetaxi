@@ -1,19 +1,37 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Your super  ApplicationAPI",
+        "title": "Vo de Taxi",
         "version": "1.0.0"
     },
     "paths": {
-        "/api/register": {
+        "/api/clients": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Register a new client",
+                "operationId": "0b636ca85e574ff3010b44d6c621c537",
+                "responses": {
+                    "201": {
+                        "description": "Clients registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            },
             "post": {
-                "summary": "Register a new user",
-                "operationId": "2f25885f3b6f61ca11724ec302d2e439",
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Register a new client",
+                "operationId": "9fdaf88d446f92c97501f370f36678cb",
                 "parameters": [
                     {
                         "name": "name",
                         "in": "query",
-                        "description": "User's name",
+                        "description": "Client's name",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -22,7 +40,7 @@
                     {
                         "name": "email",
                         "in": "query",
-                        "description": "User's email",
+                        "description": "Clients's email",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -31,7 +49,52 @@
                     {
                         "name": "password",
                         "in": "query",
-                        "description": "User's password",
+                        "description": "Clients's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "description": "Clients's city",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "Clients's state",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "adress",
+                        "in": "query",
+                        "description": "Clients's adress",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "account_validation",
+                        "in": "query",
+                        "description": "Customer account validation",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Clients's phone",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -40,7 +103,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "User registered successfully"
+                        "description": "Clients registered successfully"
                     },
                     "422": {
                         "description": "Validation errors"
