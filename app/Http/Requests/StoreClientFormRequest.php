@@ -21,23 +21,31 @@ class StoreClientFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'name' => 'required|min:3|max:100',
-            'email' => 'email|required|unique:clients,email,',
-            'password' => 'required|min:8|max:15',
-            'city' => 'required|min:3|max:50',
-            'state' => 'required|min:2|max:2',
-            'address' => 'required|max:150',
-            'phone' => 'required|min:12|max:12',
-        ];
-
-
-        if($this->method == 'PUT'){
-            $rules = [
-                'account_validation' => 'required'
-            ];
+        switch ($this->method()) {
+            case 'GET':
+            case 'DELETE': {
+                    return [];
+                }
+            case 'POST': {
+                    return [
+                        'name' => 'required|min:3|max:100',
+                        'email' => 'email|required|unique:clients,email,',
+                        'password' => 'required|min:8|max:15',
+                        'city' => 'required|min:3|max:50',
+                        'state' => 'required|min:2|max:2',
+                        'address' => 'required|max:150',
+                        'phone' => 'required|min:12|max:12',
+                    ];
+                }
+            case 'PUT':
+            case 'PATCH': {
+                    return [
+                        'account_validation' => 'required'
+                    ];
+                }
+            default:
+                break;
         }
-        return $rules;
     }
 
     public function messages()

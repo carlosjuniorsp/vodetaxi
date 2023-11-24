@@ -103,4 +103,47 @@ class ClientsController extends Controller
         $client = $this->model->create($data);
         return response()->json($client);
     }
+
+    /**
+     * @OA\Put(
+     * path="/api/clients/activation",
+     * operationId="active_client",
+     * tags={"Client"},
+     * summary="Activate customer account",
+     * description="Activate customer account",
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(),
+     *         @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *               type="object",
+     *               required={"account_validation"},
+     *               @OA\Property(property="account_validation", type="number"),
+     *            ),
+     *        ),
+     *    ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Register Successfully",
+     *          @OA\JsonContent(
+     *              example={
+     *                  {
+     *                      "account_validation": "1",
+     *                  }
+     *              }
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function AccountActivation(StoreClientFormRequest $request)
+    {
+        return "Conta ativada";
+    }
 }
