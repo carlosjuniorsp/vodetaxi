@@ -114,7 +114,7 @@ class ClientsController extends Controller
      *      @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Buscar por estado",
+     *         description="Client id",
      *         required=true,
      *      ),
      *      @OA\Parameter(
@@ -157,5 +157,43 @@ class ClientsController extends Controller
 
         $client->update($request->all());
         return response()->json($client);
+    }
+
+    /**
+     * @OA\DELETE(
+     * path="/api/clients/{id}",
+     * operationId="destroy_client",
+     * tags={"Client"},
+     * summary="Deactive customer account",
+     * description="Deactive customer account",
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Client id",
+     *         required=true,
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function destroy($id)
+    {
+        $client = $this->model->find($id);
+        if (empty($client)) {
+            return [
+                'message' => 'Não foi possível deletar os dados, o cliente (' . $id . ') não existe!',
+                'status' => 200
+            ];
+        }
+        $client->delete();
+        return response()->json([
+            'message' => 'Os dados foram deletados com sucesso!',
+            'status' => 200
+        ]);
     }
 }

@@ -123,7 +123,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Buscar por estado",
+                        "description": "Client id",
                         "required": true
                     },
                     {
@@ -147,6 +147,40 @@
                             }
                         }
                     },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/clients/{id}": {
+            "delete": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Deactive customer account",
+                "description": "Deactive customer account",
+                "operationId": "destroy_client",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Client id",
+                        "required": true
+                    }
+                ],
+                "responses": {
                     "422": {
                         "description": "Unprocessable Entity",
                         "content": {
