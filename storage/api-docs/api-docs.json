@@ -197,6 +197,132 @@
                     }
                 }
             }
+        },
+        "/api/driver": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Display all customers",
+                "description": "Display all customers",
+                "operationId": "display_driver",
+                "responses": {
+                    "201": {
+                        "description": "driver registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Register a new driver",
+                "description": "Register a new driver",
+                "operationId": "register_driver",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "city",
+                                    "state",
+                                    "address",
+                                    "phone",
+                                    "age",
+                                    "picture",
+                                    "gender",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "text"
+                                    },
+                                    "email": {
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    },
+                                    "city": {
+                                        "type": "text"
+                                    },
+                                    "state": {
+                                        "type": "text"
+                                    },
+                                    "address": {
+                                        "type": "text"
+                                    },
+                                    "phone": {
+                                        "type": "text"
+                                    },
+                                    "age": {
+                                        "type": "number"
+                                    },
+                                    "picture": {
+                                        "type": "file"
+                                    },
+                                    "gender": {
+                                        "type": "text"
+                                    },
+                                    "description": {
+                                        "type": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "name": "Motorista Carlos",
+                                        "email": "example@email.com.br",
+                                        "password": "12345678",
+                                        "city": "Mogi das Cruzes",
+                                        "state": "SP",
+                                        "address": "Rua 10",
+                                        "phone": "1193251-2496",
+                                        "age": 31,
+                                        "picture": "image.jpg",
+                                        "gender": "Masculino",
+                                        "description": "Amo dirigir na vai de taxi",
+                                        "account_validation": "0"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
         }
     }
 }
