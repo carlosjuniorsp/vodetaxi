@@ -4,23 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StartRacerFormRequest;
 use App\Models\Clients;
-use App\Models\StartRacer;
+use App\Models\StartDriver;
 use App\Models\StatusDriver;
 
 class StartRaceController extends Controller
 {
-    private $model;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(StartRacer $driver)
-    {
-        $this->model = $driver;
-    }
-
     /**
      * @OA\Post(
      * path="/api/start-racer/{id}",
@@ -72,6 +60,11 @@ class StartRaceController extends Controller
         return $this->verifyDriver($request);
     }
 
+    /**
+     * Starts checks to start a new run
+     * @param Request
+     * @return array
+     */
     private function verifyDriver($request)
     {
         $client = $this->verifyClient($request->id);
@@ -89,16 +82,50 @@ class StartRaceController extends Controller
             ];
         }
 
-        $min_distance = 5;
+        $status_drivers = $this->getDriver($client);
+        $start_driver = $this->startDriver($request, $status_drivers);
+        return response()->json($start_driver);
+    }
+
+    /**
+     * Saves a new ride in the bank for the driver to accept
+     * @param Request $request
+     * @param array $status_drivers
+     * @return array
+     */
+    private function startDriver($request, $status_drivers)
+    {
+        $data = [];
+        $data['client_id'] = $request->id;
+        $data['from_zip_code'] = $request->from_zip_code;
+        $data['to_zip_code'] = $request->to_zip_code;
+        $data['status'] = 0;
+        foreach ($status_drivers as $driver) {
+            $data['driver_id'] = $driver->driver_id;
+            $data['distance_client'] = $driver->distance;
+        }
+
+        return StartDriver::create($data);
+    }
+
+    /**
+     * Call the most suitable driver for the race
+     * @param Client
+     * @return array
+     */
+    private function getDriver($client)
+    {
+        $min_distance = 5; //KM
 
         $status_drivers = StatusDriver::select('status_driver')
-            ->select('city', 'state', 'picture', 'name', 'description')
+            ->select('city', 'state', 'picture', 'name', 'description', 'driver_id', 'distance')
             ->join('driver', 'driver.id', '=', 'status_driver.driver_id')
             ->where('status_driver.active', '=', 1)
             ->where('driver.state', '=', $client->state)
             ->where('driver.city', '=', $client->city)
             ->where('status_driver.in_running', '=', 0)
             ->where('status_driver.distance', '<=', $min_distance)
+            ->orderBy('distance')
             ->get();
         return $status_drivers;
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class StartRacer extends Model
 {
     use SoftDeletes;
-    protected $table = 'status_driver';
+    protected $table = 'start_racer';
 
     protected $fillable = [
         'client_id',

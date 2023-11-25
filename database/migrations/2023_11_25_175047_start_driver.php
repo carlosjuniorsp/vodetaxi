@@ -11,23 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('start_racer', function (Blueprint $table) {
+        Schema::create('start_driver', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained('client');
-            $table->char('from_zip_code', 7);
-            $table->boolean('to_zip_code', 7);
-            $table->char('active', 1);
+            $table->foreignId('client_id');
+            $table->foreignId('driver_id');
+            $table->char('from_zip_code', 9);
+            $table->char('to_zip_code', 9);
+            $table->boolean('distance_client', 255);
+            $table->char('status', 1);
             $table->softDeletes();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('start_racer', function (Blueprint $table) {
+        Schema::table('start_driver', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }
