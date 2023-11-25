@@ -578,6 +578,48 @@
                 }
             }
         },
+        "/api/race-accepted/{id}": {
+            "get": {
+                "tags": [
+                    "#2 - Racer Accepted"
+                ],
+                "summary": "Accept a race",
+                "description": "Accept a race",
+                "operationId": "race_accepted",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Driver id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": [
+                                    {
+                                        "account_validation": "1"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/start-racer/{id}": {
             "post": {
                 "tags": [

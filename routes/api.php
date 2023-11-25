@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\CarsController;
+use App\Http\Controllers\RaceAcceptedController;
 use App\Http\Controllers\StartRaceController;
 use App\Http\Controllers\StatusDriverController;
 use Illuminate\Support\Facades\Route;
@@ -54,3 +55,13 @@ Route::put('/status-driver/{id}', [StatusDriverController::class, 'update'])->na
  * Status Driver Router
  */
 Route::post('/start-racer/{id}', [StartRaceController::class, 'StartRacer'])->name('StartRacer');
+
+/**
+ * Status Driver Router
+ */
+Route::post('/start-racer/{id}', [StartRaceController::class, 'StartRacer'])->name('StartRacer');
+
+/**
+ * Race accepted
+ */
+Route::get('/race-accepted/{id}', [RaceAcceptedController::class, 'AcceptedRacer'])->name('AcceptedRacer');
