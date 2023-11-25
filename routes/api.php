@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\CarsController;
+use App\Http\Controllers\StartRaceController;
 use App\Http\Controllers\StatusDriverController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,3 +49,8 @@ Route::put('/cars/{id}', [CarsController::class, 'update'])->name('update');
 Route::post('/status-driver/{id}', [StatusDriverController::class, 'store'])->name('store');
 Route::get('/status-driver', [StatusDriverController::class, 'index'])->name('index');
 Route::put('/status-driver/{id}', [StatusDriverController::class, 'update'])->name('update');
+
+/**
+ * Status Driver Router
+ */
+Route::post('/start-racer/{id}', [StartRaceController::class, 'store'])->name('store');
