@@ -581,7 +581,7 @@
         "/api/race-accepted/{id}": {
             "get": {
                 "tags": [
-                    "#2 - Racer Accepted"
+                    "#6 - Racer Accepted"
                 ],
                 "summary": "Accept a race",
                 "description": "Accept a race",
@@ -596,20 +596,75 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Register Successfully",
+                        "description": "Register Successfully"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "#6 - Racer Accepted"
+                ],
+                "summary": "Update a racer",
+                "description": "Update a racer",
+                "operationId": "update_racer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Racer id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "running"
+                                ],
+                                "properties": {
+                                    "running": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "1 Accepted or 0 Refused",
                         "content": {
                             "application/json": {
                                 "schema": {},
                                 "example": [
                                     {
-                                        "account_validation": "1"
+                                        "running": 1
                                     }
                                 ]
                             }
                         }
                     },
                     "422": {
-                        "description": "Unprocessable Entity"
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -623,7 +678,7 @@
         "/api/start-racer/{id}": {
             "post": {
                 "tags": [
-                    "#4 - Start Racer"
+                    "#5 - Start Racer"
                 ],
                 "summary": "Register a new racer",
                 "description": "Register a new racer",
@@ -691,7 +746,7 @@
         "/api/status-driver/{id}": {
             "post": {
                 "tags": [
-                    "#2 - Status Driver"
+                    "#4 - Status Driver"
                 ],
                 "summary": "Register a status driver",
                 "description": "Register a status driver",

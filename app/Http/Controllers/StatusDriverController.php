@@ -24,7 +24,7 @@ class StatusDriverController extends Controller
      * @OA\Post(
      * path="/api/status-driver/{id}",
      * operationId="register_status_driver",
-     * tags={"#2 - Status Driver"},
+     * tags={"#4 - Status Driver"},
      * summary="Register a status driver",
      * description="Register a status driver",
      *      @OA\Parameter(

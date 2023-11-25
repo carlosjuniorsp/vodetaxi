@@ -14,7 +14,7 @@ class StartRaceController extends Controller
      * @OA\Post(
      * path="/api/start-racer/{id}",
      * operationId="start_racer",
-     * tags={"#4 - Start Racer"},
+     * tags={"#5 - Start Racer"},
      * summary="Register a new racer",
      * description="Register a new racer",
      *      @OA\Parameter(

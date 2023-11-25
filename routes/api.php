@@ -65,3 +65,4 @@ Route::post('/start-racer/{id}', [StartRaceController::class, 'StartRacer'])->na
  * Race accepted
  */
 Route::get('/race-accepted/{id}', [RaceAcceptedController::class, 'AcceptedRacer'])->name('AcceptedRacer');
+Route::put('/race-accepted/{id}', [RaceAcceptedController::class, 'update'])->name('update');
