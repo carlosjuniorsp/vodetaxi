@@ -18,7 +18,8 @@ return new class extends Migration
             $table->char('from_zip_code', 9);
             $table->char('to_zip_code', 9);
             $table->boolean('distance_client', 255);
-            $table->char('status', 1);
+            $table->char('running', 1)->default(0);
+            $table->char('finished', 1)->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

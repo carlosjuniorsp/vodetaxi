@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StartRacerFormRequest;
 use App\Models\Clients;
 use App\Models\StartDriver;
+use App\Models\StartRacer;
 use App\Models\StatusDriver;
 
 class StartRaceController extends Controller
@@ -87,26 +88,6 @@ class StartRaceController extends Controller
         return response()->json($start_driver);
     }
 
-    /**
-     * Saves a new ride in the bank for the driver to accept
-     * @param Request $request
-     * @param array $status_drivers
-     * @return array
-     */
-    private function startDriver($request, $status_drivers)
-    {
-        $data = [];
-        $data['client_id'] = $request->id;
-        $data['from_zip_code'] = $request->from_zip_code;
-        $data['to_zip_code'] = $request->to_zip_code;
-        $data['status'] = 0;
-        foreach ($status_drivers as $driver) {
-            $data['driver_id'] = $driver->driver_id;
-            $data['distance_client'] = $driver->distance;
-        }
-
-        return StartDriver::create($data);
-    }
 
     /**
      * Call the most suitable driver for the race
@@ -129,6 +110,41 @@ class StartRaceController extends Controller
             ->get();
         return $status_drivers;
     }
+
+    /**
+     * Saves a new ride in the bank for the driver to accept
+     * @param Request $request
+     * @param array $status_drivers
+     * @return array
+     */
+    private function startDriver($request, $status_drivers)
+    {
+        $data = [];
+        $data['client_id'] = $request->id;
+        $data['from_zip_code'] = $request->from_zip_code;
+        $data['to_zip_code'] = $request->to_zip_code;
+        $data['status'] = 0;
+        foreach ($status_drivers as $driver) {
+            $data['driver_id'] = $driver->driver_id;
+            $data['distance_client'] = $driver->distance;
+        }
+
+        $start_race_client_id = $this->verifyRaceClientId($data['client_id']);
+        if ($start_race_client_id) {
+            return [
+                'message' => 'Você precisa finalizar sua corrida atual antes de iniciar uma nova!',
+                'status' => 200
+            ];
+        }
+        return StartDriver::create($data);
+    }
+
+    private function verifyRaceClientId($client_id)
+    {
+        return StartDriver::where('client_id', $client_id)->where('finished', '=', 1)->first();
+
+    }
+
 
     /**
      * Get Client by id

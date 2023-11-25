@@ -14,7 +14,8 @@ class StartDriver extends Model
         'from_zip_code',
         'to_zip_code',
         'distance_client',
-        'status',
+        'running',
+        'finished'
     ];
 
     protected $hidden = [
