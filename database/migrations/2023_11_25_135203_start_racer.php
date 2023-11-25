@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('status_driver', function (Blueprint $table) {
+        Schema::table('start_racer', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }
