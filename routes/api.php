@@ -53,4 +53,4 @@ Route::put('/status-driver/{id}', [StatusDriverController::class, 'update'])->na
 /**
  * Status Driver Router
  */
-Route::post('/start-racer/{id}', [StartRaceController::class, 'store'])->name('store');
+Route::post('/start-racer/{id}', [StartRaceController::class, 'StartRacer'])->name('StartRacer');

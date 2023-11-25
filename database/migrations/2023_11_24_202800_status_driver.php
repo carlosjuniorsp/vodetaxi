@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('driver_id')->constrained('driver');
             $table->char('zip_code', 9);
-            $table->boolean('active');
+            $table->text('active')->default(1);
+            $table->text('in_running', 1);
+            $table->text('distance', 255);
             $table->softDeletes();
             $table->timestamps();
         });

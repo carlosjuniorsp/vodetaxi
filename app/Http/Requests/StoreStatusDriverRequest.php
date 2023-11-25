@@ -31,6 +31,8 @@ class StoreStatusDriverRequest extends FormRequest
                     return [
                         'zip_code' => 'required|min:9|max:9',
                         'active' => 'required|min:1|max:1',
+                        'in_running' => 'required|min:1|max:1',
+                        'distance' => 'required|min:1',
                     ];
                 }
             default:

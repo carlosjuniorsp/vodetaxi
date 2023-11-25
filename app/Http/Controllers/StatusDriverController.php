@@ -42,6 +42,8 @@ class StatusDriverController extends Controller
      *               required={"zip_code","active"},
      *               @OA\Property(property="zip_code", type="text"),
      *               @OA\Property(property="active", type="number"),
+     *               @OA\Property(property="in_running", type="number"),
+     *               @OA\Property(property="distance", type="number"),
      *            ),
      *        ),
      *    ),

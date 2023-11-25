@@ -14,6 +14,8 @@ class StatusDriver extends Model
         'driver_id',
         'zip_code',
         'active',
+        'in_running',
+        'distance',
     ];
 
     protected $hidden = [

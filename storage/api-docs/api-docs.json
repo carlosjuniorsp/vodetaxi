@@ -588,7 +588,7 @@
                 "operationId": "start_racer",
                 "parameters": [
                     {
-                        "name": "client_id",
+                        "name": "id",
                         "in": "path",
                         "description": "Client id",
                         "required": true
@@ -626,6 +626,7 @@
                                 "schema": {},
                                 "example": [
                                     {
+                                        "client_id": 1,
                                         "from_zip_code": "08615-120",
                                         "to_zip_code": "08615-130"
                                     }
@@ -674,6 +675,12 @@
                                         "type": "text"
                                     },
                                     "active": {
+                                        "type": "number"
+                                    },
+                                    "in_running": {
+                                        "type": "number"
+                                    },
+                                    "distance": {
                                         "type": "number"
                                     }
                                 },
