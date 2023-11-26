@@ -23,6 +23,8 @@ Technical decisions for accepting and canceling races
      #1 - clone project : git clone https://github.com/carlosjuniorsp/vodetaxi.git
      #2 - run in the terminal the command composer install
      #3 - run in the git bash the command: touch database/database.sqlite
-     #4 - run the terminal the command: php artisan migrate
-     #5 - run the terminal the command: php artisan l5-swagger:generate
-     #6 - run the terminal the command: php artisan serve
+     #4 - run the the command in the terminal: cp .env.example .env
+     #5 - run the terminal the command: php artisan migrate
+     #6 - run the terminal the command: php artisan l5-swagger:generate
+     #7 - run the terminal the command: php artisan serve
+     #8 - To see the swagger api use the link: http://127.0.0.1:8000/api/documentation
