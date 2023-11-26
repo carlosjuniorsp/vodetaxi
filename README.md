@@ -26,4 +26,3 @@ Technical decisions for accepting and canceling races
      #4 - run the terminal the command: php artisan migrate
      #5 - run the terminal the command: php artisan l5-swagger:generate
      #6 - run the terminal the command: php artisan serve
-- Notas adicionais que você considere importantes para a avaliação.
