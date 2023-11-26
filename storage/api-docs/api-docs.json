@@ -595,9 +595,6 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Register Successfully"
-                    },
                     "422": {
                         "description": "Unprocessable Entity"
                     },
@@ -608,7 +605,9 @@
                         "description": "Resource Not Found"
                     }
                 }
-            },
+            }
+        },
+        "/api/race-accepted/{id}/{running}": {
             "put": {
                 "tags": [
                     "#6 - Racer Accepted"
@@ -622,42 +621,15 @@
                         "in": "path",
                         "description": "Racer id",
                         "required": true
+                    },
+                    {
+                        "name": "running",
+                        "in": "path",
+                        "description": "1 accepted or 0 refused",
+                        "required": true
                     }
                 ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "running"
-                                ],
-                                "properties": {
-                                    "running": {
-                                        "type": "number"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
                 "responses": {
-                    "200": {
-                        "description": "1 Accepted or 0 Refused",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": [
-                                    {
-                                        "running": 1
-                                    }
-                                ]
-                            }
-                        }
-                    },
                     "422": {
                         "description": "Unprocessable Entity",
                         "content": {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RaceAcceptedFormRequest;
 use App\Models\StartDriver;
-use Illuminate\Http\Request;
 
 class RaceAcceptedController extends Controller
 {
@@ -21,10 +21,6 @@ class RaceAcceptedController extends Controller
      *         description="Driver id",
      *         required=true,
      *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Register Successfully",
-     *       ),
      *      @OA\Response(
      *          response=422,
      *          description="Unprocessable Entity",
@@ -49,7 +45,7 @@ class RaceAcceptedController extends Controller
     }
     /**
      * @OA\Put(
-     * path="/api/race-accepted/{id}",
+     * path="/api/race-accepted/{id}/{running}",
      * operationId="update_racer",
      * tags={"#6 - Racer Accepted"},
      * summary="Update a racer",
@@ -60,28 +56,12 @@ class RaceAcceptedController extends Controller
      *         description="Racer id",
      *         required=true,
      *      ),
-     *     @OA\RequestBody(
-     *         @OA\JsonContent(),
-     *         @OA\MediaType(
-     *            mediaType="multipart/form-data",
-     *            @OA\Schema(
-     *               type="object",
-     *               required={"running"},
-     *               @OA\Property(property="running", type="number"),
-     *            ),
-     *        ),
-     *    ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="1 Accepted or 0 Refused",
-     *          @OA\JsonContent(
-     *              example={
-     *                   {
-     *                      "running": 1,
-     *                  }
-     *              }
-     *          )
-     *       ),
+     *      @OA\Parameter(
+     *         name="running",
+     *         in="path",
+     *         description="1 accepted or 0 refused",
+     *         required=true,
+     *      ),
      *      @OA\Response(
      *          response=422,
      *          description="Unprocessable Entity",
@@ -91,10 +71,10 @@ class RaceAcceptedController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function update($id)
+    public function update($id, $running)
     {
         $racer = StartDriver::find($id);
-        $data['running'] = 1;
+        $data['running'] = $running;
         $racer->update($data);
         return response()->json($racer);
     }
