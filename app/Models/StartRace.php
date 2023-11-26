@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class StartRacer extends Model
+class StartRace extends Model
 {
     use SoftDeletes;
-    protected $table = 'start_racer';
+    protected $table = 'start_race';
 
     protected $fillable = [
         'client_id',

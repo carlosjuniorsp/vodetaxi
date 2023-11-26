@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StartRacerFormRequest;
+use App\Http\Requests\StartRaceFormRequest;
 use App\Models\Clients;
-use App\Models\Driver;
 use App\Models\StartDriver;
 use App\Models\StatusDriver;
 
@@ -12,11 +11,11 @@ class StartRaceController extends Controller
 {
     /**
      * @OA\Post(
-     * path="/api/start-racer/{id}",
-     * operationId="start_racer",
-     * tags={"#5 - Start Racer"},
-     * summary="Register a new racer",
-     * description="Register a new racer",
+     * path="/api/start-race/{id}",
+     * operationId="start_race",
+     * tags={"#5 - Start Race"},
+     * summary="Register a new race",
+     * description="Register a new race",
      *      @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -56,7 +55,7 @@ class StartRaceController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function StartRacer(StartRacerFormRequest $request)
+    public function StartRace(StartRaceFormRequest $request)
     {
         return $this->initialRacer($request);
     }
@@ -140,6 +139,7 @@ class StartRaceController extends Controller
         $data['distance_client'] = $status_drivers['distance'];
 
         $start_race_client_id = $this->verifyRaceClientId($data['client_id']);
+      
         if ($start_race_client_id) {
             return [
                 'message' => 'Já existe uma corrida sendo solicitada ou em andamento!',
@@ -152,7 +152,7 @@ class StartRaceController extends Controller
 
     private function verifyRaceClientId($client_id)
     {
-        return StartDriver::where('client_id', $client_id)->first();
+        return StartDriver::where('client_id', $client_id)->where('finished', '=', 0)->first();
     }
 
 

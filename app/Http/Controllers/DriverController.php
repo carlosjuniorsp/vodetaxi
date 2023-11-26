@@ -25,8 +25,8 @@ class DriverController extends Controller
      *     path="/api/driver",
      *      operationId="display_driver",
      *     tags={"#2 - Driver"},
-     *     summary="Display all customers",
-     *     description="Display all customers",
+     *     summary="Displays all drivers",
+     *     description="Displays all drivers",
      *     @OA\Response(response="201", description="driver registered successfully"),
      *     @OA\Response(response="422", description="Validation errors")
      * )

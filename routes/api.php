@@ -54,16 +54,11 @@ Route::put('/status-driver/{id}', [StatusDriverController::class, 'update'])->na
 /**
  * Status Driver Router
  */
-Route::post('/start-racer/{id}', [StartRaceController::class, 'StartRacer'])->name('StartRacer');
-
-/**
- * Status Driver Router
- */
-Route::post('/start-racer/{id}', [StartRaceController::class, 'StartRacer'])->name('StartRacer');
+Route::post('/start-race/{id}', [StartRaceController::class, 'StartRace'])->name('StartRace');
 
 /**
  * Race accepted
  */
-Route::get('/race-accepted/{id}', [RaceAcceptedController::class, 'AcceptedRacer'])->name('AcceptedRacer');
+Route::get('/race-accepted/{id}', [RaceAcceptedController::class, 'AcceptedRace'])->name('AcceptedRace');
 Route::put('/race-accepted/{id}/{running}', [RaceAcceptedController::class, 'update'])->name('update');
-Route::put('/race-finished/{id}/{finished}', [RaceAcceptedController::class, 'FinishedRacer'])->name('FinishedRacer');
+Route::put('/race-finished/{id}/{finished}', [RaceAcceptedController::class, 'FinishedRace'])->name('FinishedRace');

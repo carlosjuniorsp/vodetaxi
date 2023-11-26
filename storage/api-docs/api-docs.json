@@ -385,8 +385,8 @@
                 "tags": [
                     "#2 - Driver"
                 ],
-                "summary": "Display all customers",
-                "description": "Display all customers",
+                "summary": "Displays all drivers",
+                "description": "Displays all drivers",
                 "operationId": "display_driver",
                 "responses": {
                     "201": {
@@ -583,8 +583,8 @@
                 "tags": [
                     "#6 - Race Accepted"
                 ],
-                "summary": "Accept a race",
-                "description": "Accept a race",
+                "summary": "Displays the requested ride",
+                "description": "Displays the requested ride",
                 "operationId": "race_accepted",
                 "parameters": [
                     {
@@ -612,14 +612,14 @@
                 "tags": [
                     "#6 - Race Accepted"
                 ],
-                "summary": "Update a racer",
-                "description": "Update a racer",
-                "operationId": "update_racer",
+                "summary": "Update race status",
+                "description": "Update race status",
+                "operationId": "update_race",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Racer id",
+                        "description": "race id",
                         "required": true
                     },
                     {
@@ -659,7 +659,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Racer id",
+                        "description": "race id",
                         "required": true
                     },
                     {
@@ -687,14 +687,14 @@
                 }
             }
         },
-        "/api/start-racer/{id}": {
+        "/api/start-race/{id}": {
             "post": {
                 "tags": [
-                    "#5 - Start Racer"
+                    "#5 - Start Race"
                 ],
-                "summary": "Register a new racer",
-                "description": "Register a new racer",
-                "operationId": "start_racer",
+                "summary": "Register a new race",
+                "description": "Register a new race",
+                "operationId": "start_race",
                 "parameters": [
                     {
                         "name": "id",
