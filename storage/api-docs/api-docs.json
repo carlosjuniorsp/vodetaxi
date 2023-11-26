@@ -581,7 +581,7 @@
         "/api/race-accepted/{id}": {
             "get": {
                 "tags": [
-                    "#6 - Racer Accepted"
+                    "#6 - Race Accepted"
                 ],
                 "summary": "Accept a race",
                 "description": "Accept a race",
@@ -610,7 +610,7 @@
         "/api/race-accepted/{id}/{running}": {
             "put": {
                 "tags": [
-                    "#6 - Racer Accepted"
+                    "#6 - Race Accepted"
                 ],
                 "summary": "Update a racer",
                 "description": "Update a racer",
@@ -626,6 +626,46 @@
                         "name": "running",
                         "in": "path",
                         "description": "1 accepted or 0 refused",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/race-finished/{id}/{finished}": {
+            "put": {
+                "tags": [
+                    "#7 - Race Finished"
+                ],
+                "summary": "Finished a race",
+                "description": "Finished a race",
+                "operationId": "finished_race",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Racer id",
+                        "required": true
+                    },
+                    {
+                        "name": "finished",
+                        "in": "path",
+                        "description": "1 finishes the race",
                         "required": true
                     }
                 ],

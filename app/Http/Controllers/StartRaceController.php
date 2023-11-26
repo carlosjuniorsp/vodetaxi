@@ -84,10 +84,20 @@ class StartRaceController extends Controller
         }
 
         $status_drivers = $this->getDriver($client);
-        $this->startDriver($request, $status_drivers);
-        return response()->json($status_drivers);
-    }
+        if (count($status_drivers) <= 0) {
+            return [
+                'message' => 'Nenhum motorista disponível no momento!',
+                'status' => 200
+            ];
+        }
 
+        $distance_base = $this->CalculateDistance($status_drivers);
+        for ($i = 0; $i < count($status_drivers); $i++) {
+            if ($status_drivers[$i]['distance'] == $distance_base) {
+                return $this->startDriver($request, $status_drivers[$i]);
+            }
+        }
+    }
 
     /**
      * Call the most suitable driver for the race
@@ -108,6 +118,7 @@ class StartRaceController extends Controller
             ->where('status_driver.distance', '<=', $min_distance)
             ->orderBy('distance')
             ->get();
+
         return $status_drivers;
     }
 
@@ -119,29 +130,29 @@ class StartRaceController extends Controller
      */
     private function startDriver($request, $status_drivers)
     {
+
         $data = [];
         $data['client_id'] = $request->id;
         $data['from_zip_code'] = $request->from_zip_code;
         $data['to_zip_code'] = $request->to_zip_code;
         $data['status'] = 0;
-        foreach ($status_drivers as $driver) {
-            $data['driver_id'] = $driver->driver_id;
-            $data['distance_client'] = $driver->distance;
-        }
+        $data['driver_id'] = $status_drivers['driver_id'];
+        $data['distance_client'] = $status_drivers['distance'];
 
         $start_race_client_id = $this->verifyRaceClientId($data['client_id']);
         if ($start_race_client_id) {
             return [
-                'message' => 'Você precisa finalizar sua corrida atual antes de iniciar uma nova!',
+                'message' => 'Já existe uma corrida sendo solicitada ou em andamento!',
                 'status' => 200
             ];
         }
-        return StartDriver::create($data);
+        StartDriver::create($data);
+        return $status_drivers;
     }
 
     private function verifyRaceClientId($client_id)
     {
-        return StartDriver::where('client_id', $client_id)->where('finished', '=', 1)->first();
+        return StartDriver::where('client_id', $client_id)->first();
     }
 
 
@@ -157,12 +168,23 @@ class StartRaceController extends Controller
     }
 
     /**
-     * Get Driver by id
-     * @return Driver
-     * @param integer $client_id
+     * Calculate the closest distance to the customer
+     * @param StatusDriver
+     * @return integer $distance_base
      */
-    private function verifyDriver()
+    public function CalculateDistance($status_drivers)
     {
-        return Driver::all();
+        $distance_base = 0;
+        for ($i = 0; $i < count($status_drivers); $i++) {
+            if ($distance_base === 0) {
+                $distance_base = $status_drivers[$i]['distance'];
+            } else if ($status_drivers[$i]['distance'] > 0 && $status_drivers[$i]['distance'] <= abs($distance_base)) {
+                $distance_base = $status_drivers[$i]['distance'];
+            } else if ($status_drivers[$i]['distance'] < 0 && -$status_drivers[$i]['distance'] < abs($distance_base)) {
+                $distance_base = $status_drivers[$i]['distance'];
+            }
+        }
+
+        return $distance_base;
     }
 }
