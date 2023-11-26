@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StartRacerFormRequest;
 use App\Models\Clients;
+use App\Models\Driver;
 use App\Models\StartDriver;
-use App\Models\StartRacer;
 use App\Models\StatusDriver;
 
 class StartRaceController extends Controller
@@ -58,7 +58,7 @@ class StartRaceController extends Controller
      */
     public function StartRacer(StartRacerFormRequest $request)
     {
-        return $this->verifyDriver($request);
+        return $this->initialRacer($request);
     }
 
     /**
@@ -66,7 +66,7 @@ class StartRaceController extends Controller
      * @param Request
      * @return array
      */
-    private function verifyDriver($request)
+    private function initialRacer($request)
     {
         $client = $this->verifyClient($request->id);
         if (empty($client)) {
@@ -84,8 +84,8 @@ class StartRaceController extends Controller
         }
 
         $status_drivers = $this->getDriver($client);
-        $start_driver = $this->startDriver($request, $status_drivers);
-        return response()->json($start_driver);
+        $this->startDriver($request, $status_drivers);
+        return response()->json($status_drivers);
     }
 
 
@@ -142,7 +142,6 @@ class StartRaceController extends Controller
     private function verifyRaceClientId($client_id)
     {
         return StartDriver::where('client_id', $client_id)->where('finished', '=', 1)->first();
-
     }
 
 
@@ -155,5 +154,15 @@ class StartRaceController extends Controller
     {
         $client = new Clients();
         return $client->find($client_id);
+    }
+
+    /**
+     * Get Driver by id
+     * @return Driver
+     * @param integer $client_id
+     */
+    private function verifyDriver()
+    {
+        return Driver::all();
     }
 }

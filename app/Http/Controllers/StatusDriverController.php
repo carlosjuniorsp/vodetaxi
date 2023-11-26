@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStatusDriverRequest;
+use App\Models\Cars;
 use App\Models\Driver;
 use App\Models\StatusDriver;
 
@@ -20,7 +21,7 @@ class StatusDriverController extends Controller
         $this->model = $statusDriver;
     }
 
-   /**
+    /**
      * @OA\Post(
      * path="/api/status-driver/{id}",
      * operationId="register_status_driver",
@@ -79,18 +80,30 @@ class StatusDriverController extends Controller
      */
     public function store($id, StoreStatusDriverRequest $request)
     {
-        $driver = new Driver();
-        $driver->find($id);
-
-        if (empty($driver))
+        $driver = Driver::find($id);
+        if (empty($driver)) {
             return [
                 'message' => 'Motorista não encontrado, não é possível salvar sua localização!',
                 'status' => 200
             ];
-        
+        }
+
+        $driverCar = Cars::find($driver->id);
+        if (empty($driverCar)) {
+            return [
+                'message' => 'Não é possível salvar a localização do motorista, cadastre um veículo antes!',
+                'status' => 200
+            ];
+        }
+
         $data = $request->all();
-        $data['driver_id'] = $id;
-        $status = $this->model->create($data);
-        return response()->json($status);
+        $data['driver_id'] = $driver->id;
+
+        $verifyStatusDriver = $this->model->where('driver_id', $data['driver_id'])->first();
+        if ($verifyStatusDriver) {
+            $verifyStatusDriver->update($data);
+            return $data;
+        }
+        return $this->model->create($data);
     }
 }
